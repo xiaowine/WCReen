@@ -1,0 +1,8 @@
+<resources>
+    <!--
+      平台主题，不依赖任何库。
+      DayNight 变体自动跟随系统深色模式，因此不需要 values-night/ 覆盖。
+      将来做 UI 时再换成 Material3 主题。
+    -->
+    <style name="Theme.WCReen" parent="@android:style/Theme.DeviceDefault.DayNight" />
+</resources>

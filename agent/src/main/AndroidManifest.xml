@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  这不是一个真正的 Android 应用，不会被安装。
+  由 `app_process` 手动加载执行。
+
+  因为从不安装，manifest 里的任何声明（权限、组件、application 属性）都不生效。
+  AGP 只是要求这个文件存在。
+  参考：scrcpy server/src/main/AndroidManifest.xml —— 内容完全相同。
+-->
+<manifest />

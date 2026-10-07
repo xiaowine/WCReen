@@ -1,0 +1,27 @@
+# 行尾统一。Windows 上 git 默认 core.autocrlf=true，会把检出内容转成 CRLF ——
+# 对 shell 脚本是致命的：`run-agent.sh` 带 CRLF 推到设备上会报 "not found"。
+#
+# 规则：源码/脚本/文档一律 LF，Windows 批处理用 CRLF，二进制不碰。
+* text=auto eol=lf
+
+*.sh    text eol=lf
+*.py    text eol=lf
+*.kt    text eol=lf
+*.kts   text eol=lf
+*.md    text eol=lf
+*.txt   text eol=lf
+*.xml   text eol=lf
+*.aidl  text eol=lf
+*.keep  text eol=lf
+*.toml  text eol=lf
+
+# Windows 批处理必须是 CRLF
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# 二进制
+*.jar   binary
+*.apk   binary
+*.webp  binary
+*.png   binary
+*.exe   binary

@@ -1,0 +1,20 @@
+[package]
+name = "app"
+description = "WCReen PC 客户端：egui + wgpu 窗口 + 会话编排（连接 / 握手 / 建屏 / 收帧 / 渲染 / 心跳）"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+# 版本与 feature 写法照抄 `pc/spike`（已验证可用）。
+# `wgpu` 与 `eframe` 必须锁到同一份 wgpu（workspace 里都是 30.0.1），
+# 否则 `egui_wgpu::RenderState.device` 与 `decode` 里的 `wgpu::Device` 不是同一个类型。
+[dependencies]
+decode = { path = "../decode" }
+eframe = "0.36.2"
+egui = "0.36.2"
+env_logger = "0.11.11"
+log = "0.4.34"
+proto = { path = "../proto" }
+serde = { version = "1.0.229", features = ["derive"] }
+wgpu = "30.0.1"

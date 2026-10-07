@@ -1,0 +1,20 @@
+# PC 端 Cargo workspace
+#
+# 与 Gradle 侧（`agent/`、`app/`）平级，互不干扰。
+#
+# 三个产品 crate（`tech-stack/overview.md` §5 未决项 #1 的定稿，2026-10-07）：
+# - `proto`  —— 线协议：帧框架 + 控制消息（CRC32 + JSON）+ DTO。**纯逻辑**，可单测。
+# - `decode` —— FFmpeg 硬解 + 帧通路。**所有 unsafe / FFI 隔离在这一层**。
+# - `app`    —— egui + wgpu 桌面应用与编排（连接 / 握手 / 建屏 / 收帧 / 渲染 / 心跳）。
+#
+# `spike` 保留作**历史证据**（`docs/plans/2026-10-07-pc-spike-report.md`），不再演进。
+
+[workspace]
+resolver = "3"
+members = ["spike", "proto", "decode", "app"]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.97"
+license = "LGPL-3.0-only"

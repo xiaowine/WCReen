@@ -1,0 +1,19 @@
+*.iml
+.gradle
+/.idea/
+/local.properties
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Python（tools/ 下的 PC 侧工具）
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Rust（pc/ 下的 PC 端）
+target/

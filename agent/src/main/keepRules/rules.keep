@@ -1,0 +1,30 @@
+# R8 keep 规则（AGP 会合并 src/main/keepRules/ 下所有 .keep 文件）
+#
+# 本模块开了 R8 裁剪，但必须保住类名 —— app_process 是拿「类名字符串」定位入口的：
+#
+#     app_process / com.xiaowine.wcreen.agent.Main
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 这个字符串
+#
+# 一旦被重命名成 a.b.c，必然 ClassNotFoundException。
+# 关掉混淆后 R8 仍可安全地做「裁剪」和「优化」，
+# 从而把 kotlin-stdlib 里没用到的 ~1000 个类删掉。
+
+-dontobfuscate
+
+# 保住 stack trace 里的文件名与行号。否则 R8 会把 SourceFile 换成 r8-map-id-<hash>，
+# 崩溃时看到的全是 r8-map-id-55e8e3b4...:160 这种没法定位的帧。
+-keepattributes SourceFile,LineNumberTable
+
+# 入口方法：R8 看不到任何调用方，不 keep 就会被当成死代码删掉
+-keepclasseswithmembers class * {
+    public static void main(java.lang.String[]);
+}
+
+# 协议 DTO：Gson 靠反射读写字段，R8 看不见这些访问。
+# 不 keep 的后果不是报错，而是字段被裁掉 —— 运行期收到缺字段的 JSON，静默丢信息。
+# 保留 <init>() 是因为 Gson 走「主构造器参数全有默认值 ⇒ 生成无参构造」这条路，
+# 没有无参构造它会退化成 Unsafe 分配，非空类型就可能是 null。
+-keep class com.xiaowine.wcreen.agent.proto.** {
+    <fields>;
+    <init>();
+}
